@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForThePing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', monospace;
+      background-color: #0e111b;
+      color: #d1ecff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      padding: 2rem;
+    }
+
+    .code-block {
+      background-color: #121625;
+      border: 1px solid #f3bfd244;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+      font-size: 1rem;
+      color: #a9dcff;
+      box-shadow: 0 0 12px #ff70c033;
+    }
+
+    h2 {
+      color: #f3bfd2;
+      font-size: 1.3rem;
+      border-left: 4px solid #f3bfd2;
+      padding-left: 1rem;
+      margin-top: 3rem;
+      text-transform: uppercase;
+      padding-left: 1rem;
+      margin-top: 3rem;
+      text-transform: uppercase;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li::before {
+      content: '> ';
+      color: #00bfff;
+    }
+
+    .form-terminal {
+      background-color: #1c2233;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #00bfff33;
+    }
+
+    .form-terminal label {
+      display: block;
+      margin-top: 1rem;
+      color: #d1ecff;
+    }
+
+    .form-terminal input,
+    .form-terminal textarea {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #0e111b;
+      border: 1px solid #00bfff66;
+      color: #d1ecff;
+      font-family: 'Orbitron', monospace;
+      border-radius: 4px;
+    }
+
+    .form-terminal button {
+      background-color: #f3bfd2;
+      color: #0e111b;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      box-shadow: 0 0 8px #f3bfd2aa;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .form-terminal button:hover {
+      background-color: #e6aabc;
+      box-shadow: 0 0 14px #f3bfd2cc;
+      transform: scale(1.02);
+    }
+
+    .logo {
+      max-width: 180px;
+      margin: 2rem auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo_rose_bleu.png" alt="Logo ForThePing" class="logo" />
+  <div class="container">
+    <div class="code-block">
+<pre>
+// Diagnostic réseau
+// Architecture système
+// Gouvernance TI
+</pre>
+    </div>
+
+    <h2>Une approche simple pour régler ce qui compte.</h2>
+    <p>Fort d’une <strong>longue expérience</strong> dans les technologies de l’information, une chose est claire : <em>ce qui compte, c’est ce qui fonctionne</em>. ⚙️</p>
+    <p>De la technique jusqu’à la gestion d’équipe, <strong>ForThePing</strong> propose une approche de consultation basée sur <u>la clarté</u>, <strong>l’expérience</strong> et <strong>l’efficacité</strong>. 🎯</p>
+    <p><strong>ForThePing</strong>, c’est une <strong>vision franche</strong> et <strong>structurée</strong> de l’informatique d’entreprise : architecture réseau, systèmes, gouvernance, gestion de projets, amélioration des processus.</p>
+    <p>🧠 Pas de jargon inutile. Pas de flou. Un seul objectif : <strong>vous aider à comprendre</strong>, <strong>à optimiser</strong>, et <strong>à faire évoluer</strong> votre environnement TI.</p>
+    <p>🔍 On identifie ce qui cloche. 🛠️ On règle ce qui compte. 🧱 On bâtit sur du solide.</p>
+    <p>Mon approche est simple : <em>des résultats concrets</em>. ✅</p>
+
+    <h2>Ce qui est offert</h2>
+    <ul>
+      <li>Architecture réseau et système – clair, optimisé, compréhensible</li>
+      <li>Gestion de projets TI – alignée avec la réalité du terrain</li>
+      <li>Amélioration des processus – documentation, formation, gouvernance</li>
+      <li>Conseil stratégique – sans détour, sans filtre</li>
+    </ul>
+
+    <h2>Ce qui n’est pas offert</h2>
+    <ul>
+      <li>Vendre du rêve</li>
+      <li>Embellir les rapports</li>
+      <li>Parler pour ne rien dire</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <div class="form-terminal">
+      <p>// Écris-moi sans compromis</p>
+      <form action="mailto:jimmym@fortheping.com" method="post" enctype="text/plain">
+        <label for="Nom">> nom_utilisateur :</label>
+        <input type="text" id="Nom" name="Nom" placeholder="votre_nom" required />
+
+        <label for="Email">> adresse_courriel :</label>
+        <input type="email" id="Email" name="Email" placeholder="vous@example.com" required />
+
+        <label for="Message">> message :</label>
+        <textarea id="Message" name="Message" rows="5" placeholder="Tape ton message ici..." required></textarea>
+
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
