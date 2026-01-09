@@ -3,166 +3,249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ForThePing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>ForThePing | Architecture de Systèmes Critiques</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&family=Space+Grotesque:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --bg-color: #0a0c12;
+      --container-bg: #11141d;
+      --accent-pink: #f3bfd2;
+      --accent-blue: #00bfff;
+      --text-main: #d1ecff;
+      --text-dim: #8ba3b5;
+      --border-color: rgba(243, 191, 210, 0.2);
+    }
+
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Orbitron', monospace;
-      background-color: #0e111b;
-      color: #d1ecff;
+      font-family: 'Space Grotesque', sans-serif;
+      background-color: var(--bg-color);
+      /* Effet de grille subtile en arrière-plan */
+      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
       align-items: center;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .container {
-      width: 100%;
-      max-width: 960px;
-      padding: 2rem;
+      width: 90%;
+      max-width: 850px;
+      padding: 4rem 2rem;
     }
 
+    .logo {
+      max-width: 160px;
+      margin-top: 3rem;
+      filter: drop-shadow(0 0 10px rgba(243, 191, 210, 0.3));
+    }
+
+    /* Bloc de code stylisé "Header de Mission" */
     .code-block {
-      background-color: #121625;
-      border: 1px solid #f3bfd244;
-      padding: 1rem;
-      border-radius: 8px;
-      margin: 2rem 0;
-      font-size: 1rem;
-      color: #a9dcff;
-      box-shadow: 0 0 12px #ff70c033;
+      background-color: var(--container-bg);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      border-left: 4px solid var(--accent-pink);
+      margin: 2rem 0 4rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent-blue);
+      box-shadow: 10px 10px 0px rgba(0,0,0,0.3);
     }
 
     h2 {
-      color: #f3bfd2;
-      font-size: 1.3rem;
-      border-left: 4px solid #f3bfd2;
-      padding-left: 1rem;
-      margin-top: 3rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-pink);
+      font-size: 1.1rem;
+      margin-top: 4rem;
       text-transform: uppercase;
-      padding-left: 1rem;
-      margin-top: 3rem;
-      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
     }
+
+    h2::before {
+      content: "[ SEC_0" counter(section) " ] ";
+      counter-increment: section;
+      margin-right: 1rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+    
+    body { counter-reset: section; }
+
+    p {
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+
+    strong { color: var(--accent-blue); font-weight: 500; }
 
     ul {
       list-style: none;
-      padding-left: 0;
+      padding-left: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
     }
 
     li::before {
-      content: '> ';
-      color: #00bfff;
+      content: '::';
+      position: absolute;
+      left: 0;
+      color: var(--accent-pink);
     }
 
+    /* Terminal de contact */
     .form-terminal {
-      background-color: #1c2233;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 12px #00bfff33;
+      background-color: var(--container-bg);
+      padding: 2rem;
+      border: 1px solid rgba(0, 191, 255, 0.2);
+      margin-top: 2rem;
+      position: relative;
+    }
+
+    .form-terminal::after {
+      content: "SYSTEM_READY";
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--bg-color);
+      padding: 0 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent-blue);
     }
 
     .form-terminal label {
       display: block;
-      margin-top: 1rem;
-      color: #d1ecff;
+      margin-top: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-dim);
     }
 
     .form-terminal input,
     .form-terminal textarea {
       width: 100%;
-      padding: 0.75rem;
-      background-color: #0e111b;
-      border: 1px solid #00bfff66;
-      color: #d1ecff;
-      font-family: 'Orbitron', monospace;
-      border-radius: 4px;
+      box-sizing: border-box;
+      padding: 0.8rem;
+      background-color: rgba(0,0,0,0.2);
+      border: 1px solid rgba(0, 191, 255, 0.1);
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 0.5rem;
+      outline: none;
     }
 
-    .form-terminal button {
-      background-color: #f3bfd2;
-      color: #0e111b;
-      border: none;
-      border-radius: 6px;
+    .form-terminal input:focus,
+    .form-terminal textarea:focus {
+      border-color: var(--accent-blue);
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--accent-pink);
+      border: 1px solid var(--accent-pink);
+      padding: 1rem 2.5rem;
+      font-family: 'JetBrains Mono', monospace;
       font-weight: bold;
-      cursor: pointer;
-      padding: 0.75rem 2rem;
-      font-size: 1rem;
       text-transform: uppercase;
-      box-shadow: 0 0 8px #f3bfd2aa;
-      transition: all 0.2s ease-in-out;
+      margin-top: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
     }
 
-    .form-terminal button:hover {
-      background-color: #e6aabc;
-      box-shadow: 0 0 14px #f3bfd2cc;
-      transform: scale(1.02);
+    button:hover {
+      background-color: var(--accent-pink);
+      color: var(--bg-color);
+      box-shadow: 0 0 20px rgba(243, 191, 210, 0.4);
     }
 
-    .logo {
-      max-width: 180px;
-      margin: 2rem auto;
-      display: block;
+    a { color: inherit; text-decoration: none; transition: 0.3s; }
+    a:hover { color: var(--accent-blue); }
+
+    .footer-status {
+      margin: 4rem 0 2rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-align: center;
     }
+
   </style>
 </head>
 <body>
-  <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" />
+
+  <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" alt="ForThePing Logo" />
+
   <div class="container">
     <div class="code-block">
-<pre>
-// Conception d'infrastructure informatique 🏗️
-// Réseau et télécommunication 📡
-// Optimisation de vos processus 🚀
-// Gouvernance 📊
-</pre>
+      <code>
+        // ARCHITECTURE D'INFRASTRUCTURE EFFICACE<br>
+        // RÉSEAU ET TÉLÉCOMMUNICATION STRATÉGIQUE<br>
+        // GOUVERNANCE ET OPTIMISATION TI
+      </code>
     </div>
 
-    <h2>Une approche simple pour régler ce qui compte.</h2>
-    <p>Fort d’une <strong>longue expérience</strong> dans les technologies de l’information, une chose est claire : <em>ce qui compte, c’est ce qui fonctionne</em>. ⚙️</p>
-    <p>De la technique jusqu’à la gouvernance, <strong>ForThePing</strong> propose une approche de consultation basée sur <u>la clarté</u>, <strong>l’expérience</strong> et <strong>l’efficacité</strong>. 🎯</p>
-    <p><strong>ForThePing</strong>, c’est une <strong>vision franche</strong> et <strong>structurée</strong> de l’informatique d’entreprise : architecture réseau, systèmes, gouvernance, gestion de projets, amélioration des processus.</p>
-    <p>🧠 Pas de jargon inutile. Pas de flou. Un seul objectif : <strong>vous aider à comprendre</strong>, <strong>à optimiser</strong>, et <strong>à faire évoluer</strong> votre environnement TI.</p>
-    <p>🔍 On identifie ce qui cloche. 🛠️ On règle ce qui compte. 🧱 On bâtit sur du solide.</p>
-    <p>Mon approche est simple : <em>des résultats concrets</em>. 🤜🤛</p>
+    <h2>Vision Stratégique</h2>
+    <p>Fort d’une expertise reconnue dans les environnements technologiques complexes, mon constat est simple : <strong>la performance est le résultat de la clarté.</strong></p>
+    <p>De la conception technique à la gouvernance de haut niveau, <strong>ForThePing</strong> offre une consultation sans compromis, axée sur l'expérience terrain et l'efficacité opérationnelle.</p>
+    <p>Mon rôle est d'éliminer le flou pour bâtir des structures robustes : architecture réseau, interconnexions, sécurité et gestion de projets critiques.</p>
+    <p><strong>Zéro jargon inutile. Zéro rapport vide.</strong> On identifie les failles, on déploie des solutions pérennes, on stabilise le socle.</p>
 
-    <h2>Ce qui est offert ✅</h2>
+    <h2>Expertises_Actives</h2>
     <ul>
-      <li>Architecture réseau et système – clair, optimisé, compréhensible</li>
-      <li>Gestion de projets TI – alignée avec la réalité du terrain</li>
-      <li>Amélioration des processus – documentation, formation, gouvernance</li>
-      <li>Conseil stratégique – sans détour, sans filtre</li>
+      <li>Architecture réseau et système — Conception et optimisation</li>
+      <li>Infrastructures critiques — Haute disponibilité et redondance</li>
+      <li>Gouvernance TI — Processus, documentation et stratégie</li>
+      <li>Conseil exécutif — Vision franche pour décideurs</li>
     </ul>
 
-    <h2>Ce qui n’est pas offert ❌</h2>
+    <h2>Périmètre_Exclu</h2>
     <ul>
-      <li>Vendre du rêve</li>
-      <li>Embellir les rapports</li>
-      <li>Parler pour ne rien dire</li>
+      <li>Vendre des solutions sur-dimensionnées</li>
+      <li>Rapports complaisants</li>
+      <li>Maintenance de niveau 1 & Support technique usuel</li>
     </ul>
 
-      <h2><a href='https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/?ismsaljsauthenabled'>Prendre rendez-vous 📅</a></h2>
-    
-    <h2>Contact 📩</h2> 
+    <h2>Planification</h2>
+    <p>Besoin d'une analyse de structure ou d'un pivot stratégique ?</p>
+    <a href="https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/" target="_blank">
+      <button>[ RÉSERVER UN CRÉNEAU_ ]</button>
+    </a>
+
+    <h2>Contact_Terminal</h2> 
     <div class="form-terminal">
-      <p>// Écrivez-moi sans compromis</p>
       <form action="mailto:jimmym@fortheping.com" method="post" enctype="text/plain">
-        <label for="Nom">> nom_utilisateur :</label>
+        <label for="Nom">:: ID_CLIENT :</label>
         <input type="text" id="Nom" name="Nom" placeholder="votre_nom" required />
 
-        <label for="Email">> adresse_courriel :</label>
-        <input type="email" id="Email" name="Email" placeholder="vous@example.com" required />
+        <label for="Email">:: CANAL_COMM :</label>
+        <input type="email" id="Email" name="Email" placeholder="votre_courriel@domaine.com" required />
 
-        <label for="Message">> message :</label>
-        <textarea id="Message" name="Message" rows="5" placeholder="Tape ton message ici..." required></textarea>
+        <label for="Message">:: TRANSMISSION :</label>
+        <textarea id="Message" name="Message" rows="5" placeholder="Détails du projet ou de la problématique..." required></textarea>
 
-        <button type="submit">Envoyer</button>
+        <button type="submit">TRANSMETTRE_L'INFO</button>
       </form>
     </div>
+
+    <div class="footer-status">
+      // STATUS: OPERATIONAL | LOCATION: QUÉBEC, CA | © 2026 FOR THE PING
+    </div>
   </div>
+
 </body>
 </html>
-
-
