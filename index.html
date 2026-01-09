@@ -4,247 +4,263 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ForThePing | Architecture de Systèmes Critiques</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&family=Space+Grotesque:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesque:wght@300;500;600&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-color: #0a0c12;
-      --container-bg: #11141d;
-      --accent-pink: #f3bfd2;
-      --accent-blue: #00bfff;
-      --text-main: #d1ecff;
-      --text-dim: #8ba3b5;
-      --border-color: rgba(243, 191, 210, 0.2);
+      --bg-deep: #0d1117;
+      --accent-soft-pink: #f3bfd2;
+      --accent-tech-blue: #58a6ff;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --border-thin: rgba(243, 191, 210, 0.15);
     }
 
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Space Grotesque', sans-serif;
-      background-color: var(--bg-color);
-      /* Effet de grille subtile en arrière-plan */
-      background-image: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 30px 30px;
-      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      background-image: linear-gradient(rgba(243, 191, 210, 0.02) 1px, transparent 1px), 
+                        linear-gradient(90deg, rgba(243, 191, 210, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      color: var(--text-primary);
       display: flex;
       flex-direction: column;
       align-items: center;
-      line-height: 1.7;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
       width: 90%;
-      max-width: 850px;
-      padding: 4rem 2rem;
+      max-width: 800px;
+      padding: 6rem 2rem;
     }
 
     .logo {
-      max-width: 160px;
-      margin-top: 3rem;
-      filter: drop-shadow(0 0 10px rgba(243, 191, 210, 0.3));
+      max-width: 140px;
+      margin-top: 4rem;
+      opacity: 0.9;
     }
 
-    /* Bloc de code stylisé "Header de Mission" */
-    .code-block {
-      background-color: var(--container-bg);
-      border: 1px solid var(--border-color);
-      padding: 1.5rem;
-      border-left: 4px solid var(--accent-pink);
-      margin: 2rem 0 4rem 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      color: var(--accent-blue);
-      box-shadow: 10px 10px 0px rgba(0,0,0,0.3);
+    /* En-tête de page - Style Plan d'architecte */
+    .hero-banner {
+      border-top: 1px solid var(--border-thin);
+      border-bottom: 1px solid var(--border-thin);
+      padding: 2rem 0;
+      margin: 3rem 0 5rem 0;
+      font-family: 'Space Grotesque', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .hero-banner code {
+      display: block;
+      color: var(--accent-tech-blue);
+      font-size: 0.85rem;
+      text-transform: uppercase;
     }
 
     h2 {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--accent-pink);
-      font-size: 1.1rem;
-      margin-top: 4rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
+      font-family: 'Space Grotesque', sans-serif;
+      color: var(--accent-soft-pink);
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-top: 5rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
     }
-
-    h2::before {
-      content: "[ SEC_0" counter(section) " ] ";
-      counter-increment: section;
-      margin-right: 1rem;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-    
-    body { counter-reset: section; }
 
     p {
       font-weight: 300;
-      font-size: 1.05rem;
-      color: var(--text-main);
-      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 2rem;
     }
 
-    strong { color: var(--accent-blue); font-weight: 500; }
+    strong {
+      color: var(--accent-tech-blue);
+      font-weight: 500;
+    }
 
     ul {
       list-style: none;
-      padding-left: 0.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
+      padding-left: 0;
+      margin-bottom: 3rem;
     }
 
     li {
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
       padding-left: 1.5rem;
       position: relative;
+      font-size: 1.05rem;
+      font-weight: 300;
     }
 
     li::before {
-      content: '::';
+      content: '';
       position: absolute;
       left: 0;
-      color: var(--accent-pink);
+      top: 14px;
+      width: 12px;
+      height: 1px;
+      background-color: var(--accent-soft-pink);
     }
 
-    /* Terminal de contact */
-    .form-terminal {
-      background-color: var(--container-bg);
-      padding: 2rem;
-      border: 1px solid rgba(0, 191, 255, 0.2);
-      margin-top: 2rem;
-      position: relative;
+    /* Section Contact Épurée */
+    .contact-wrapper {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-thin);
+      padding: 3rem;
+      margin-top: 4rem;
     }
 
-    .form-terminal::after {
-      content: "SYSTEM_READY";
-      position: absolute;
-      top: -10px;
-      right: 20px;
-      background: var(--bg-color);
-      padding: 0 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent-blue);
+    .contact-wrapper h3 {
+      font-family: 'Space Grotesque', sans-serif;
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--text-primary);
     }
 
-    .form-terminal label {
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    label {
       display: block;
-      margin-top: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-dim);
+      font-family: 'Space Grotesque', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
     }
 
-    .form-terminal input,
-    .form-terminal textarea {
+    input, textarea {
       width: 100%;
       box-sizing: border-box;
-      padding: 0.8rem;
-      background-color: rgba(0,0,0,0.2);
-      border: 1px solid rgba(0, 191, 255, 0.1);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-thin);
       color: white;
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: 0.5rem;
+      padding: 0.8rem 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
       outline: none;
+      transition: border-color 0.3s;
     }
 
-    .form-terminal input:focus,
-    .form-terminal textarea:focus {
-      border-color: var(--accent-blue);
+    input:focus, textarea:focus {
+      border-bottom-color: var(--accent-tech-blue);
     }
 
     button {
-      background-color: transparent;
-      color: var(--accent-pink);
-      border: 1px solid var(--accent-pink);
-      padding: 1rem 2.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: bold;
+      background-color: var(--accent-soft-pink);
+      color: var(--bg-deep);
+      border: none;
+      padding: 1rem 3rem;
+      font-family: 'Space Grotesque', sans-serif;
+      font-weight: 600;
       text-transform: uppercase;
-      margin-top: 2rem;
+      letter-spacing: 1px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s;
     }
 
     button:hover {
-      background-color: var(--accent-pink);
-      color: var(--bg-color);
-      box-shadow: 0 0 20px rgba(243, 191, 210, 0.4);
+      background-color: white;
+      transform: translateY(-2px);
     }
 
-    a { color: inherit; text-decoration: none; transition: 0.3s; }
-    a:hover { color: var(--accent-blue); }
+    .btn-booking {
+      display: inline-block;
+      border: 1px solid var(--accent-soft-pink);
+      color: var(--accent-soft-pink);
+      padding: 0.8rem 2rem;
+      text-decoration: none;
+      font-family: 'Space Grotesque', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
 
-    .footer-status {
-      margin: 4rem 0 2rem 0;
-      font-family: 'JetBrains Mono', monospace;
+    .btn-booking:hover {
+      background: var(--accent-soft-pink);
+      color: var(--bg-deep);
+    }
+
+    footer {
+      margin: 6rem 0 3rem 0;
+      font-family: 'Space Grotesque', sans-serif;
       font-size: 0.7rem;
-      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-secondary);
       text-align: center;
     }
-
   </style>
 </head>
 <body>
 
-  <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" alt="ForThePing Logo" />
+  <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" alt="ForThePing" />
 
   <div class="container">
-    <div class="code-block">
-      <code>
-        // ARCHITECTURE D'INFRASTRUCTURE EFFICACE<br>
-        // RÉSEAU ET TÉLÉCOMMUNICATION STRATÉGIQUE<br>
-        // GOUVERNANCE ET OPTIMISATION TI
-      </code>
+    
+    <div class="hero-banner">
+      <code>Architecte de solutions technologiques</code>
+      <code>Télécommunications & Infrastructures Critiques</code>
+      <code>Gouvernance Stratégique</code>
     </div>
 
-    <h2>Vision Stratégique</h2>
-    <p>Fort d’une expertise reconnue dans les environnements technologiques complexes, mon constat est simple : <strong>la performance est le résultat de la clarté.</strong></p>
-    <p>De la conception technique à la gouvernance de haut niveau, <strong>ForThePing</strong> offre une consultation sans compromis, axée sur l'expérience terrain et l'efficacité opérationnelle.</p>
-    <p>Mon rôle est d'éliminer le flou pour bâtir des structures robustes : architecture réseau, interconnexions, sécurité et gestion de projets critiques.</p>
-    <p><strong>Zéro jargon inutile. Zéro rapport vide.</strong> On identifie les failles, on déploie des solutions pérennes, on stabilise le socle.</p>
+    <h2>Vision et expertise</h2>
+    <p>Dans un écosystème technologique en constante mutation, la résilience d'une organisation repose sur la clarté de son architecture. <strong>ForThePing</strong> accompagne les entreprises dans la conception et l'optimisation de leurs infrastructures les plus critiques.</p>
+    <p>De la stratégie réseau à la gouvernance de haut niveau, j'interviens pour transformer la complexité en systèmes robustes, évolutifs et surtout compréhensibles pour les décideurs.</p>
+    <p>Mon approche repose sur un principe fondamental : <strong>identifier les failles réelles</strong> et bâtir des fondations solides, sans jargon superflu ni compromis sur la performance.</p>
 
-    <h2>Expertises_Actives</h2>
+    <h2>Domaines d'intervention</h2>
     <ul>
-      <li>Architecture réseau et système — Conception et optimisation</li>
-      <li>Infrastructures critiques — Haute disponibilité et redondance</li>
-      <li>Gouvernance TI — Processus, documentation et stratégie</li>
-      <li>Conseil exécutif — Vision franche pour décideurs</li>
+      <li>Architecture réseau et systèmes complexes</li>
+      <li>Infrastructures à haute disponibilité</li>
+      <li>Gouvernance TI et optimisation des processus</li>
+      <li>Conseil stratégique pour directions techniques</li>
     </ul>
 
-    <h2>Périmètre_Exclu</h2>
+    <h2>Engagement professionnel</h2>
     <ul>
-      <li>Vendre des solutions sur-dimensionnées</li>
-      <li>Rapports complaisants</li>
-      <li>Maintenance de niveau 1 & Support technique usuel</li>
+      <li>Priorité aux solutions pérennes et éprouvées</li>
+      <li>Transparence totale dans l'analyse des risques</li>
+      <li>Focus exclusif sur les mandats à haute valeur stratégique</li>
     </ul>
 
-    <h2>Planification</h2>
-    <p>Besoin d'une analyse de structure ou d'un pivot stratégique ?</p>
-    <a href="https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/" target="_blank">
-      <button>[ RÉSERVER UN CRÉNEAU_ ]</button>
-    </a>
+    <div style="margin-top: 4rem;">
+      <a href="https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/" class="btn-booking" target="_blank">Réserver une consultation stratégique</a>
+    </div>
 
-    <h2>Contact_Terminal</h2> 
-    <div class="form-terminal">
+    <div class="contact-wrapper">
+      <h3>Démarrer une collaboration</h3>
       <form action="mailto:jimmym@fortheping.com" method="post" enctype="text/plain">
-        <label for="Nom">:: ID_CLIENT :</label>
-        <input type="text" id="Nom" name="Nom" placeholder="votre_nom" required />
+        <div class="form-group">
+          <label for="Nom">Nom et organisation</label>
+          <input type="text" id="Nom" name="Nom" required />
+        </div>
 
-        <label for="Email">:: CANAL_COMM :</label>
-        <input type="email" id="Email" name="Email" placeholder="votre_courriel@domaine.com" required />
+        <div class="form-group">
+          <label for="Email">Adresse de contact</label>
+          <input type="email" id="Email" name="Email" required />
+        </div>
 
-        <label for="Message">:: TRANSMISSION :</label>
-        <textarea id="Message" name="Message" rows="5" placeholder="Détails du projet ou de la problématique..." required></textarea>
+        <div class="form-group">
+          <label for="Message">Nature du projet ou de la problématique</label>
+          <textarea id="Message" name="Message" rows="4" required></textarea>
+        </div>
 
-        <button type="submit">TRANSMETTRE_L'INFO</button>
+        <button type="submit">Envoyer la demande</button>
       </form>
     </div>
 
-    <div class="footer-status">
-      // STATUS: OPERATIONAL | LOCATION: QUÉBEC, CA | © 2026 FOR THE PING
-    </div>
+    <footer>
+      Architecture & Stratégie | Québec, Canada | © 2026 ForThePing
+    </footer>
   </div>
 
 </body>
