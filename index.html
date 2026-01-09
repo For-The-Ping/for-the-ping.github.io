@@ -28,7 +28,6 @@
       align-items: center;
     }
 
-    /* Effet de grille technique en arrière-plan pour habiller l'espace */
     body::before {
       content: "";
       position: fixed;
@@ -54,7 +53,6 @@
       filter: drop-shadow(0 0 15px rgba(243, 191, 210, 0.3));
     }
 
-    /* Bloc Pre-code : Ton expertise immédiate */
     .code-block {
       background-color: var(--panel-bg);
       border: 1px solid rgba(243, 191, 210, 0.3);
@@ -85,7 +83,7 @@
     }
 
     p {
-      font-size: 1.25rem; /* Texte plus grand pour éviter le froid/vide */
+      font-size: 1.25rem;
       margin-bottom: 1.8rem;
       color: var(--text-white);
       font-weight: 300;
@@ -93,14 +91,6 @@
 
     strong { color: var(--accent-blue); font-weight: 600; }
     em { color: var(--accent-pink); font-style: italic; }
-
-    /* Listes stylisées */
-    .sections-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      margin-top: 3rem;
-    }
 
     ul {
       list-style: none;
@@ -113,11 +103,8 @@
     li {
       font-size: 1.2rem;
       margin-bottom: 1.2rem;
-      position: relative;
-      padding-left: 0.5rem;
     }
 
-    /* Bouton d'action massif */
     .cta-container {
       text-align: center;
       margin: 5rem 0;
@@ -140,16 +127,13 @@
       background: var(--accent-pink);
       color: var(--bg-color);
       box-shadow: 0 0 30px rgba(243, 191, 210, 0.5);
-      transform: translateY(-3px);
     }
 
-    /* Formulaire Style Terminal */
     .contact-form {
       background-color: var(--panel-bg);
       padding: 3rem;
       border-radius: 8px;
       border: 1px solid var(--accent-blue);
-      box-shadow: 0 0 20px rgba(0, 191, 255, 0.1);
     }
 
     .contact-form label {
@@ -184,12 +168,6 @@
       margin-top: 2rem;
       cursor: pointer;
       width: 100%;
-      transition: 0.3s;
-    }
-
-    .contact-form button:hover {
-      background-color: #ffffff;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
     }
 
     footer {
@@ -198,7 +176,6 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
     }
-
   </style>
 </head>
 <body>
@@ -247,7 +224,7 @@
     <h2>Contact 📩</h2> 
     <div class="contact-form">
       <form action="mailto:jimmym@fortheping.com" method="post" enctype="text/plain">
-        <label for="Nom">> nom_utilisateur :</label>
+        <label for="Nom">> nom_prénom :</label>
         <input type="text" id="Nom" name="Nom" placeholder="votre_nom" required />
 
         <label for="Email">> adresse_courriel :</label>
@@ -256,7 +233,7 @@
         <label for="Message">> message :</label>
         <textarea id="Message" name="Message" rows="5" placeholder="Détails de votre projet..." required></textarea>
 
-        <button type="submit">Envoyer la transmission</button>
+        <button type="submit">Envoyer</button>
       </form>
     </div>
 
