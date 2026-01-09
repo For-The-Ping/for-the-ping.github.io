@@ -128,6 +128,13 @@
       padding: 1.1rem 4rem; font-weight: 700; text-transform: uppercase; cursor: pointer; width: 100%;
     }
 
+    .scope-card {
+      transition: border-color 0.3s ease;
+    }
+    .scope-card:hover {
+      border-color: var(--accent-pink);
+    }
+
     @media (max-width: 768px) { .scope-grid { grid-template-columns: 1fr; } }
 
     footer { margin: 6rem 0 3rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; opacity: 0.5; text-align: center; }
@@ -136,7 +143,7 @@
 <body>
 
   <div class="container">
-    <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" />
+    <img src="https://github.com/For-The-Ping/for-the-ping.github.io/blob/main/logo_rose_bleu.png?raw=true" class="logo" alt="ForThePing" />
 
     <div class="hero-terminal">
 <pre>
@@ -177,7 +184,7 @@
     </div>
 
     <div class="booking-wrapper">
-      <a href="https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/" class="btn-glow" target="_blank">Prendre rendez-vous 📅</a>
+      <a href="https://outlook.office.com/owa/calendar/ForthePing1@fortheping.com/bookings/" class="btn-glow" target="_blank" rel="noopener">Prendre rendez-vous 📅</a>
     </div>
 
     <h2>Contact 📩</h2> 
@@ -203,6 +210,7 @@
 
 </body>
 </html>
+
 
 
 
