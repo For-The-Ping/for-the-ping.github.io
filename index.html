@@ -52,11 +52,13 @@
     .hero-terminal {
       background: var(--panel-bg);
       border: 1px solid var(--accent-steel);
-      padding: 2rem;
+      padding: 1.5rem; /* Réduit un peu pour mobile */
       border-radius: 4px;
       margin-bottom: 4rem;
       box-shadow: 0 10px 40px rgba(0,0,0,0.6);
       position: relative;
+      width: 100%; /* S'adapte au conteneur */
+      box-sizing: border-box; /* Inclut le padding dans la largeur */
     }
 
     .hero-terminal::before {
@@ -66,9 +68,14 @@
       letter-spacing: 1px;
     }
 
-    pre {
-      margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
-      color: var(--accent-steel); white-space: pre-wrap;
+   pre {
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--accent-steel);
+      white-space: pre-wrap;       /* Force le retour à la ligne */
+      word-wrap: break-word;       /* Coupe les mots trop longs si nécessaire */
+      overflow-x: hidden;          /* Élimine le scroll horizontal parasite */
     }
 
     h2 {
@@ -144,7 +151,12 @@
       border-color: var(--accent-pink);
     }
 
-    @media (max-width: 768px) { .scope-grid { grid-template-columns: 1fr; } }
+    /* Ajustement de taille pour les très petits écrans */
+      @media (max-width: 480px) {
+        pre {
+          font-size: 0.9rem; 
+        }
+      }
 
     footer { margin: 6rem 0 3rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; opacity: 0.5; text-align: center; }
   </style>
@@ -255,6 +267,7 @@
   </script>
 </body>
 </html>
+
 
 
 
