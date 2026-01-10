@@ -225,8 +225,7 @@
       </div>
     </footer>
   </div>
-  
-  <script>
+   <script>
     const form = document.getElementById("contact-form");
     form.addEventListener("submit", async function(e) {
       e.preventDefault();
@@ -236,8 +235,10 @@
         body: data,
         headers: { 'Accept': 'application/json' }
       });
+  
       if (response.ok) {
-        window.location.href = "merci.html"; // Redirection locale forcée
+        form.reset(); // <--- ICI : On vide les champs du formulaire
+        window.location.href = "merci.html"; // Puis on redirige
       } else {
         alert("Erreur lors de l'envoi. Veuillez réessayer.");
       }
@@ -245,6 +246,7 @@
   </script>
 </body>
 </html>
+
 
 
 
