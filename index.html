@@ -151,12 +151,20 @@
       border-color: var(--accent-pink);
     }
 
-    /* Ajustement de taille pour les très petits écrans */
-      @media (max-width: 480px) {
-        pre {
-          font-size: 0.9rem; 
-        }
+    @media (max-width: 768px) {
+      .scope-grid {
+        grid-template-columns: 1fr !important; /* Force une seule colonne */
+        gap: 15px;
       }
+    
+      .scope-card {
+        padding: 1.5rem; /* Un peu moins de padding pour gagner de l'espace */
+      }
+    
+      pre {
+        font-size: 0.9rem; /* Réduction du texte du terminal pour mobile */
+      }
+    }
 
     footer { margin: 6rem 0 3rem 0; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; opacity: 0.5; text-align: center; }
   </style>
@@ -267,6 +275,7 @@
   </script>
 </body>
 </html>
+
 
 
 
