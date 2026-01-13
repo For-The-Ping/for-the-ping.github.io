@@ -3,268 +3,160 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ForThePing — Word Runner (Chasse)</title>
+  <title>ForThePing — Word Runner</title>
+
   <style>
     :root{
       --bg:#0b0f19;
       --text:#e5e7eb;
       --muted:#94a3b8;
-      --border:rgba(255,255,255,.10);
-      --shadow:0 10px 30px rgba(0,0,0,.45);
-      --sans: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
 
-      /* Couleurs gameplay */
-      --goodFill: rgba(59,130,246,.18);   /* bleu */
+      --goodFill: rgba(59,130,246,.18);
       --goodStroke: rgba(59,130,246,.55);
       --goodText: rgba(191,219,254,.98);
 
-      --badFill: rgba(239,68,68,.16);     /* rouge */
+      --badFill: rgba(239,68,68,.16);
       --badStroke: rgba(239,68,68,.58);
       --badText: rgba(254,202,202,.98);
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; background:var(--bg); color:var(--text); font-family:var(--sans);}
-    .wrap{min-height:100vh; display:flex; flex-direction:column; align-items:center;}
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto;
+    }
+
     header{
-      width:min(980px,100%); padding:16px;
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
+      max-width:980px;
+      margin:auto;
+      padding:16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
     }
-    header h1{margin:0; font-size:18px; font-weight:900; letter-spacing:.2px;}
-    header h1 span{opacity:.75; font-weight:800}
-    .topBtns{display:flex; gap:10px; align-items:center}
-    .btn{
-      padding:8px 14px; border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.08);
-      color: var(--text);
-      font-weight:900; cursor:pointer; user-select:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+
+    button{
+      background:#1f2937;
+      border:1px solid #374151;
+      color:white;
+      padding:8px 14px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
     }
-    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.18)}
-    .btn:active{transform:translateY(0)}
-    .main{width:min(980px,100%); padding:16px; display:flex; flex-direction:column; gap:12px;}
+
     canvas{
-      width:100%; height:auto; display:block;
+      display:block;
+      margin:0 auto;
       border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow: var(--shadow);
+      background:#0b0f19;
+      box-shadow:0 10px 30px rgba(0,0,0,.45);
     }
-    .grid2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-    @media (max-width:820px){.grid2{grid-template-columns:1fr}}
-    .card{
-      background: rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:12px; padding:12px;
+
+    footer{
+      text-align:center;
+      padding:16px;
+      color:var(--muted);
+      font-size:12px;
     }
-    .card .title{font-weight:900; margin-bottom:8px;}
-    .card p{margin:0; color:var(--muted); line-height:1.5; font-size:14px;}
-    .lb{list-style:none; padding:0; margin:0; display:grid; gap:6px; font-size:14px;}
-    .lb li{display:grid; grid-template-columns: 1fr auto; gap:10px; align-items:center;}
-    .lb .meta{color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px;}
-    .lb .score{font-weight:900; font-family:var(--mono);}
-    footer{padding:18px; color:var(--muted); font-size:12px;}
   </style>
 </head>
+
 <body>
-<div class="wrap">
-  <header>
-    <h1>ForThePing <span>— Word Runner (Chasse)</span></h1>
-    <div class="topBtns">
-      <button class="btn" id="btnStart">Démarrer</button>
-      <button class="btn" id="btnReset">Reset</button>
-    </div>
-  </header>
 
-  <div class="main">
-    <canvas id="cv" width="960" height="540"></canvas>
-
-    <div class="grid2">
-      <div class="card">
-        <div class="title">Contrôles</div>
-        <p>
-          ZQSD / WASD / flèches pour bouger.
-          Mange les <b style="color:rgba(191,219,254,.98)">mots bleus</b> (+score, +niveau).
-          Évite les <b style="color:rgba(254,202,202,.98)">mots rouges</b> qui te chassent (−1 vie).
-          <span style="font-family:var(--mono)">3 vies</span>. À la fin : classement local.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="title">Classement (local)</div>
-        <ul class="lb" id="lb"></ul>
-        <p id="lbEmpty" style="display:none">Aucun score pour l’instant.</p>
-      </div>
-    </div>
+<header>
+  <strong>ForThePing — Word Runner</strong>
+  <div>
+    <button onclick="start()">Démarrer</button>
+    <button onclick="reset()">Reset</button>
   </div>
+</header>
 
-  <footer>Aucune donnée ne sort de ton navigateur. (localStorage)</footer>
-</div>
+<canvas id="cv" width="960" height="540"></canvas>
+
+<footer>
+  Aucune donnée ne sort de ton navigateur (localStorage)
+</footer>
 
 <script>
-"use strict";
-
 /* =========================
-   DIMENSIONS & FEEL
-   ========================= */
+   CONFIG
+========================= */
 const W = 960, H = 540;
-
 const PLAYER_R = 12;
-const PLAYER_SPEED = 2.35;
-
-// Hit / invincibility (après touche)
+const PLAYER_SPEED = 2.4;
 const MAX_LIVES = 3;
 const INVULN_SEC = 1.2;
 
-// Mots
-const WORD_H = 26;
-const WORD_PAD = 10;
-
-// Spawn safety
-const SAFE_SPAWN_MARGIN = 140;
-const MAX_OVERLAP_TRIES = 180;
-
-// Niveau
-const LEVEL_UP_EVERY_GOODS = 4; // bons mots à manger pour passer un niveau
-
-// Densité
-function goodCountForLevel(lv){ return clamp(3 + Math.floor(lv/2), 3, 6); }
-function enemyCountForLevel(lv){ return clamp(2 + lv, 2, 10); }
-
-// Vitesses ennemis (px/sec)
-function enemySpeedMin(lv){ return 55 + lv*18; }
-function enemySpeedMax(lv){ return 95 + lv*24; }
-
-// Steering
-function enemyJitter(lv){ return clamp(22 + lv*3, 22, 44); }
-const HOMING_SMOOTH = 6.5;
-
-// Anti-regroupement (repulsion)
-const SEP_RADIUS = 160;          // distance de "zone personnelle"
-const SEP_FORCE = 520;           // force repulsion
-const WANDER_FORCE = 110;        // errance légère
-const WANDER_FREQ = 0.9;         // changement de direction d’errance
-
-/* =========================
-   LEXIQUE (figé)
-   ========================= */
 const GOOD_WORDS = [
-  "Architecture","Infrastructure","Structure","Système","Réseau","Télécommunication",
-  "Interconnexion","Segmentation","Redondance","Résilience",
-  "Performance","Stabilité","Continuité","Disponibilité","Flux",
-  "Optimisation","Amélioration","Efficacité","Fluidité","Simplification","Rationalisation","Gain",
-  "Gouvernance","Gestion","Documentation","Formation","Vision","Décision","Priorités","Alignement","Cohérence",
-  "Clarté","Expérience","Fiabilité","Solidité","Résultats concrets","Ce qui fonctionne","Ce qui compte",
-  "IA","Intelligence artificielle","Cloud","Innovation"
+  "Architecture","Infrastructure","Réseau","Télécommunication","Résilience",
+  "Performance","Stabilité","Continuité","Optimisation","Efficacité",
+  "Gouvernance","Vision","Décision","Alignement","Clarté","Fiabilité"
 ];
+
 const BAD_WORDS = [
-  "Flou","Jargon inutile","Complexité inutile","Bruit","Surcouche",
+  "Flou","Jargon inutile","Complexité inutile","Surcouche",
   "Rapports embellis","Parler pour ne rien dire","Vendre du rêve"
 ];
 
-// Option: buzzwords "pas ancré" au début
-const BUZZ = new Set(["IA","Cloud","Innovation","Intelligence artificielle"]);
+let redirectArmed = false;
 
 /* =========================
-   HELPERS
-   ========================= */
-function clamp(v,min,max){ return Math.max(min, Math.min(max,v)); }
-function rand(a,b){ return a + Math.random()*(b-a); }
-function pick(arr){ return arr[(Math.random()*arr.length)|0]; }
-function rectsOverlap(a,b){
-  return !(
-    a.x + a.w <= b.x || a.x >= b.x + b.w || a.y + a.h <= b.y || a.y >= b.y + b.h
-  );
-}
-function circleRectCollision(c, r){
-  const cx = clamp(c.x, r.x, r.x + r.w);
-  const cy = clamp(c.y, r.y, r.y + r.h);
-  const dx = c.x - cx, dy = c.y - cy;
-  return dx*dx + dy*dy <= c.r*c.r;
-}
-function dist(ax,ay,bx,by){ return Math.hypot(ax-bx, ay-by); }
-
-/* =========================
-   LEADERBOARD
-   ========================= */
-const LB_KEY = "ftp_word_runner_lb_v2";
-function loadScores(){
-  try { return JSON.parse(localStorage.getItem(LB_KEY) || "[]"); }
-  catch { return []; }
-}
-function saveScore({score, level}){
-  const rec = { score, level, date: new Date().toLocaleString() };
-  const arr = loadScores();
-  arr.push(rec);
-  arr.sort((a,b)=> (b.score - a.score) || (b.level - a.level));
-  const top = arr.slice(0, 8);
-  localStorage.setItem(LB_KEY, JSON.stringify(top));
-  return top;
-}
-function renderLB(){
-  const el = document.getElementById("lb");
-  const empty = document.getElementById("lbEmpty");
-  const lb = loadScores();
-  el.innerHTML = "";
-  if(lb.length === 0){ empty.style.display = "block"; return; }
-  empty.style.display = "none";
-  lb.forEach((r,i)=>{
-    const li = document.createElement("li");
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    meta.textContent = `${i+1}. ${r.date} — Niv ${r.level}`;
-    const sc = document.createElement("div");
-    sc.className = "score";
-    sc.textContent = r.score;
-    li.appendChild(meta);
-    li.appendChild(sc);
-    el.appendChild(li);
-  });
-}
-
-/* =========================
-   CANVAS / INPUT
-   ========================= */
+   CANVAS
+========================= */
 const cv = document.getElementById("cv");
 const ctx = cv.getContext("2d");
+
 const keys = {};
-window.addEventListener("keydown", e => keys[e.key.toLowerCase()] = true, {passive:true});
-window.addEventListener("keyup", e => keys[e.key.toLowerCase()] = false, {passive:true});
+window.addEventListener("keydown", e => keys[e.key] = true);
+window.addEventListener("keyup", e => keys[e.key] = false);
 
 /* =========================
    GAME STATE
-   ========================= */
+========================= */
 const game = {
   running:false,
   over:false,
   score:0,
   level:1,
   lives:MAX_LIVES,
-  goodsEaten:0,
-  time:0,
-  msg:"",
   invuln:0,
-
-  player:{ x: W/2, y: H/2, r: PLAYER_R },
+  time:0,
+  player:{ x:W/2, y:H/2 },
   goods:[],
-  enemies:[],
+  enemies:[]
 };
 
+/* =========================
+   LEADERBOARD
+========================= */
+const LB_KEY = "ftp_word_runner_lb";
+
+function saveScore(){
+  const arr = JSON.parse(localStorage.getItem(LB_KEY)||"[]");
+  arr.push({
+    score:game.score,
+    level:game.level,
+    date:new Date().toLocaleString()
+  });
+  arr.sort((a,b)=>b.score-a.score);
+  localStorage.setItem(LB_KEY, JSON.stringify(arr.slice(0,8)));
+}
+
+/* =========================
+   GAME FLOW
+========================= */
 function reset(){
+  redirectArmed = false;
   game.running = false;
   game.over = false;
   game.score = 0;
   game.level = 1;
   game.lives = MAX_LIVES;
-  game.goodsEaten = 0;
-  game.time = 0;
-  game.msg = "";
   game.invuln = 0;
-  game.player = { x: W/2, y: H/2, r: PLAYER_R };
-  game.goods = [];
-  game.enemies = [];
+  game.time = 0;
+  game.player = { x:W/2, y:H/2 };
   spawnLevel();
   draw();
 }
@@ -272,252 +164,63 @@ function reset(){
 function start(){
   if(game.over) reset();
   game.running = true;
-  game.over = false;
-  game.msg = "";
   lastT = performance.now();
   requestAnimationFrame(loop);
 }
 
 function gameOver(){
+  if (redirectArmed) return;
+  redirectArmed = true;
+
   game.running = false;
   game.over = true;
-  game.msg = "Fin — redirection vers fortheping.com…";
-  saveScore({ score: game.score, level: game.level });
-  renderLB();
+
+  saveScore();
   draw();
 
-  // Redirection après un court délai (laisse le temps de voir le message)
   setTimeout(() => {
-    window.location.href = "https://fortheping.com/";
+    window.location.assign("https://fortheping.com/");
   }, 1200);
 }
 
 /* =========================
-   SPAWN (SAFE + NO OVERLAP)
-   ========================= */
-function playerSafeRect(r){
-  const px = game.player.x, py = game.player.y;
-  const cx = r.x + r.w/2, cy = r.y + r.h/2;
-  return dist(px,py,cx,cy) >= SAFE_SPAWN_MARGIN + game.player.r;
-}
-function measureWord(label){
-  ctx.font = "13px system-ui, -apple-system, Segoe UI, sans-serif";
-  const tw = ctx.measureText(label).width;
-  const w = Math.min(340, Math.max(90, tw + WORD_PAD*2));
-  return { w, h: WORD_H };
-}
-function placeRect(rect, blockers){
-  let tries = 0;
-  while(tries++ < MAX_OVERLAP_TRIES){
-    rect.x = rand(10, W - rect.w - 10);
-    rect.y = rand(10, H - rect.h - 10);
-    if(!playerSafeRect(rect)) continue;
-    if(blockers.some(b => rectsOverlap(b, rect))) continue;
-    return true;
-  }
-  return false;
-}
-function spawnGood(blockers){
-  const label = pick(GOOD_WORDS);
-  const size = measureWord(label);
-  const r = { x:0, y:0, w:size.w, h:size.h, label, bad:false };
-  if(placeRect(r, blockers)){
-    game.goods.push(r);
-    blockers.push(r);
-  }
-}
-function spawnEnemy(blockers){
-  let label = pick(BAD_WORDS);
-  if(game.level <= 2 && Math.random() < 0.18){
-    const bw = pick(Array.from(BUZZ));
-    label = bw + " (pas ancré)";
-  }
-  const size = measureWord(label);
-  const r = { x:0, y:0, w:size.w, h:size.h, label, bad:true };
-  if(!placeRect(r, blockers)) return;
-
-  const spd = rand(enemySpeedMin(game.level), enemySpeedMax(game.level));
-  const ang = rand(0, Math.PI*2);
-
-  game.enemies.push({
-    ...r,
-    vx: Math.cos(ang) * (spd * 0.15),
-    vy: Math.sin(ang) * (spd * 0.15),
-    speed: spd,
-    jitter: enemyJitter(game.level),
-    // wander vector (changes over time)
-    wx: Math.cos(ang) * WANDER_FORCE,
-    wy: Math.sin(ang) * WANDER_FORCE,
-    wt: rand(0, WANDER_FREQ),
-  });
-
-  blockers.push(r);
-}
+   SPAWN
+========================= */
 function spawnLevel(){
   game.goods = [];
   game.enemies = [];
-  const blockers = [];
 
-  const gCount = goodCountForLevel(game.level);
-  for(let i=0;i<gCount;i++) spawnGood(blockers);
+  for(let i=0;i<3;i++) spawnGood();
+  for(let i=0;i<2+game.level;i++) spawnEnemy();
+}
 
-  const eCount = enemyCountForLevel(game.level);
-  for(let i=0;i<eCount;i++) spawnEnemy(blockers);
+function spawnGood(){
+  game.goods.push({
+    label:GOOD_WORDS[Math.floor(Math.random()*GOOD_WORDS.length)],
+    x:Math.random()*(W-200)+50,
+    y:Math.random()*(H-50)+25
+  });
+}
 
-  game.msg = `Niveau ${game.level} — tiens bon.`;
+function spawnEnemy(){
+  game.enemies.push({
+    label:BAD_WORDS[Math.floor(Math.random()*BAD_WORDS.length)],
+    x:Math.random()*W,
+    y:Math.random()*H,
+    vx:0,
+    vy:0,
+    speed:80+game.level*20
+  });
 }
 
 /* =========================
-   LOOP / UPDATE
-   ========================= */
+   LOOP
+========================= */
 let lastT = 0;
-
-function update(dt){
-  game.time += dt;
-
-  if(game.invuln > 0) game.invuln = Math.max(0, game.invuln - dt);
-
-  // player move
-  let vx=0, vy=0;
-  const k = keys;
-  if(k["arrowleft"] || k["a"] || k["q"]) vx -= PLAYER_SPEED;
-  if(k["arrowright"] || k["d"]) vx += PLAYER_SPEED;
-  if(k["arrowup"] || k["w"] || k["z"]) vy -= PLAYER_SPEED;
-  if(k["arrowdown"] || k["s"]) vy += PLAYER_SPEED;
-
-  game.player.x = clamp(game.player.x + vx, game.player.r, W - game.player.r);
-  game.player.y = clamp(game.player.y + vy, game.player.r, H - game.player.r);
-
-  // enemies chase + separation
-  const px = game.player.x, py = game.player.y;
-
-  for(let i=0;i<game.enemies.length;i++){
-    const e = game.enemies[i];
-
-    // update wander occasionally
-    e.wt -= dt;
-    if(e.wt <= 0){
-      e.wt = rand(0.4, WANDER_FREQ);
-      const a = rand(0, Math.PI*2);
-      e.wx = Math.cos(a) * WANDER_FORCE;
-      e.wy = Math.sin(a) * WANDER_FORCE;
-    }
-
-    // homing direction
-    const ex = e.x + e.w/2, ey = e.y + e.h/2;
-    let dx = px - ex, dy = py - ey;
-    const d = Math.max(0.001, Math.hypot(dx,dy));
-    dx /= d; dy /= d;
-
-    // jitter
-    const jx = rand(-1,1) * (e.jitter * 0.001);
-    const jy = rand(-1,1) * (e.jitter * 0.001);
-
-    // separation (repulsion from other enemies)
-    let sx = 0, sy = 0;
-    for(let j=0;j<game.enemies.length;j++){
-      if(i===j) continue;
-      const o = game.enemies[j];
-      const ox = o.x + o.w/2, oy = o.y + o.h/2;
-      const ddx = ex - ox, ddy = ey - oy;
-      const dd = Math.hypot(ddx,ddy);
-      if(dd > 0 && dd < SEP_RADIUS){
-        const push = (SEP_RADIUS - dd) / SEP_RADIUS; // 0..1
-        sx += (ddx / dd) * push;
-        sy += (ddy / dd) * push;
-      }
-    }
-    // normalize separation
-    const sm = Math.hypot(sx,sy);
-    if(sm > 0.001){ sx/=sm; sy/=sm; }
-
-    // combine forces
-    const targetVx =
-      (dx + jx) * e.speed +
-      sx * SEP_FORCE +
-      e.wx; // wander
-
-    const targetVy =
-      (dy + jy) * e.speed +
-      sy * SEP_FORCE +
-      e.wy;
-
-    // smooth steering
-    const blend = clamp(HOMING_SMOOTH*dt, 0, 1);
-    e.vx += (targetVx - e.vx) * blend;
-    e.vy += (targetVy - e.vy) * blend;
-
-    e.x += e.vx * dt;
-    e.y += e.vy * dt;
-
-    // bounds
-    if(e.x < 6){ e.x = 6; e.vx *= -0.28; }
-    if(e.y < 6){ e.y = 6; e.vy *= -0.28; }
-    if(e.x + e.w > W-6){ e.x = W-6 - e.w; e.vx *= -0.28; }
-    if(e.y + e.h > H-6){ e.y = H-6 - e.h; e.vy *= -0.28; }
-  }
-
-  // goods collision
-  for(let i=game.goods.length-1;i>=0;i--){
-    const g = game.goods[i];
-    if(circleRectCollision(game.player, g)){
-      game.goods.splice(i,1);
-      game.score += 150 + game.level*10;
-      game.goodsEaten += 1;
-      game.msg = `+ ${g.label}`;
-
-      // respawn one good (keep count low)
-      const blockers = [
-        ...game.goods,
-        ...game.enemies.map(en=>({x:en.x,y:en.y,w:en.w,h:en.h}))
-      ];
-      spawnGood(blockers);
-
-      if(game.goodsEaten % LEVEL_UP_EVERY_GOODS === 0){
-        game.level += 1;
-        game.score += 250;
-        spawnLevel();
-        game.invuln = Math.max(game.invuln, 0.6);
-      }
-    }
-  }
-
-  // enemies collision (lose life)
-  if(game.invuln <= 0){
-    for(const e of game.enemies){
-      if(circleRectCollision(game.player, e)){
-        game.lives -= 1;
-
-        if(game.lives <= 0){
-          game.msg = `Tu t’es fait avoir par : "${e.label}"`;
-          return gameOver();
-        }
-
-        game.msg = `Ouch! "${e.label}" — il te reste ${game.lives} vie${game.lives>1?"s":""}.`;
-        game.player.x = W/2;
-        game.player.y = H/2;
-        game.invuln = INVULN_SEC;
-
-        // spawn 1 extra enemy on hit (cap)
-        if(game.enemies.length < 14){
-          const blockers = [
-            ...game.goods,
-            ...game.enemies.map(en=>({x:en.x,y:en.y,w:en.w,h:en.h}))
-          ];
-          spawnEnemy(blockers);
-        }
-        break;
-      }
-    }
-  }
-
-  // tiny survival score
-  game.score = Math.max(game.score, Math.floor(game.time * 6));
-}
 
 function loop(t){
   if(!game.running) return;
-  const dt = Math.min(0.05, (t - lastT)/1000);
+  const dt = (t-lastT)/1000;
   lastT = t;
   update(dt);
   draw();
@@ -525,127 +228,90 @@ function loop(t){
 }
 
 /* =========================
-   DRAW
-   ========================= */
-function roundRect(x,y,w,h,r){
-  const rr = Math.min(r, w/2, h/2);
-  ctx.beginPath();
-  ctx.moveTo(x+rr, y);
-  ctx.arcTo(x+w, y, x+w, y+h, rr);
-  ctx.arcTo(x+w, y+h, x, y+h, rr);
-  ctx.arcTo(x, y+h, x, y, rr);
-  ctx.arcTo(x, y, x+w, y, rr);
-  ctx.closePath();
-}
-function centerText(a,b){
-  ctx.save();
-  ctx.globalAlpha = 0.96;
-  ctx.textAlign = "center";
-  ctx.fillStyle = "rgba(255,255,255,.95)";
-  ctx.font = "900 26px system-ui, -apple-system, Segoe UI, sans-serif";
-  ctx.fillText(a, W/2, H/2 - 16);
-  ctx.globalAlpha = 0.75;
-  ctx.font = "13px system-ui, -apple-system, Segoe UI, sans-serif";
-  ctx.fillText(b, W/2, H/2 + 12);
-  ctx.restore();
-}
+   UPDATE
+========================= */
+function update(dt){
+  game.time += dt;
+  if(game.invuln>0) game.invuln-=dt;
 
-function draw(){
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle = "#0b0f19";
-  ctx.fillRect(0,0,W,H);
+  let vx=0,vy=0;
+  if(keys.ArrowLeft||keys.a) vx-=PLAYER_SPEED;
+  if(keys.ArrowRight||keys.d) vx+=PLAYER_SPEED;
+  if(keys.ArrowUp||keys.w) vy-=PLAYER_SPEED;
+  if(keys.ArrowDown||keys.s) vy+=PLAYER_SPEED;
 
-  // HUD
-  ctx.fillStyle = "white";
-  ctx.font = "14px system-ui, -apple-system, Segoe UI, sans-serif";
-  ctx.fillText(`Score: ${game.score}`, 12, 22);
-  ctx.fillText(`Niveau: ${game.level}`, 12, 42);
-  ctx.fillText(`Vies: ${game.lives}`, 12, 62);
-
-  if(game.invuln > 0){
-    ctx.fillStyle = "rgba(255,255,255,.70)";
-    ctx.font = "12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
-    ctx.fillText(`Bouclier: ${(game.invuln).toFixed(1)}s`, 12, 82);
-  }
-  if(game.msg){
-    ctx.fillStyle = "#ffd166";
-    ctx.font = "16px system-ui, -apple-system, Segoe UI, sans-serif";
-    ctx.fillText(game.msg, 12, 108);
-  }
-
-  // GOODS (bleus)
-  const goodFill = getComputedStyle(document.documentElement).getPropertyValue("--goodFill").trim();
-  const goodStroke = getComputedStyle(document.documentElement).getPropertyValue("--goodStroke").trim();
-  const goodText = getComputedStyle(document.documentElement).getPropertyValue("--goodText").trim();
-
-  for(const g of game.goods){
-    ctx.fillStyle = goodFill;
-    ctx.strokeStyle = goodStroke;
-    roundRect(g.x, g.y, g.w, g.h, 10);
-    ctx.fill(); ctx.stroke();
-
-    ctx.fillStyle = goodText;
-    ctx.font = "13px system-ui, -apple-system, Segoe UI, sans-serif";
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillText(g.label, g.x + WORD_PAD, g.y + g.h/2);
-  }
-
-  // ENEMIES (rouges)
-  const badFill = getComputedStyle(document.documentElement).getPropertyValue("--badFill").trim();
-  const badStroke = getComputedStyle(document.documentElement).getPropertyValue("--badStroke").trim();
-  const badText = getComputedStyle(document.documentElement).getPropertyValue("--badText").trim();
+  game.player.x=Math.max(PLAYER_R,Math.min(W-PLAYER_R,game.player.x+vx));
+  game.player.y=Math.max(PLAYER_R,Math.min(H-PLAYER_R,game.player.y+vy));
 
   for(const e of game.enemies){
-    ctx.fillStyle = badFill;
-    ctx.strokeStyle = badStroke;
-    roundRect(e.x, e.y, e.w, e.h, 10);
-    ctx.fill(); ctx.stroke();
+    const dx=game.player.x-e.x;
+    const dy=game.player.y-e.y;
+    const d=Math.hypot(dx,dy)||1;
+    e.vx=(dx/d)*e.speed;
+    e.vy=(dy/d)*e.speed;
+    e.x+=e.vx*dt;
+    e.y+=e.vy*dt;
 
-    ctx.fillStyle = badText;
-    ctx.font = "13px system-ui, -apple-system, Segoe UI, sans-serif";
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillText(e.label, e.x + WORD_PAD, e.y + e.h/2);
+    if(game.invuln<=0 && Math.hypot(e.x-game.player.x,e.y-game.player.y)<PLAYER_R+12){
+      game.lives--;
+      game.invuln=INVULN_SEC;
+      game.player={x:W/2,y:H/2};
+      if(game.lives<=0) return gameOver();
+    }
   }
 
-  // Player (rond)
-  ctx.save();
-  const p = game.player;
-  if(game.invuln > 0){
-    const blink = (Math.floor(game.time * 12) % 2) === 0;
-    ctx.globalAlpha = blink ? 0.45 : 1;
-  }
-  ctx.beginPath();
-  ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-  ctx.fillStyle = "#ff6ad5";
-  ctx.fill();
-  ctx.globalAlpha = 0.9;
-  ctx.strokeStyle = "rgba(255,255,255,.25)";
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.restore();
-
-  if(!game.running && !game.over){
-    centerText("WORD RUNNER", "Démarre. Les mots rouges te chassent.");
-  }
-  if(game.over){
-    centerText("FIN", "Score enregistré. Clique Démarrer pour rejouer.");
+  for(let i=game.goods.length-1;i>=0;i--){
+    const g=game.goods[i];
+    if(Math.hypot(g.x-game.player.x,g.y-game.player.y)<PLAYER_R+40){
+      game.goods.splice(i,1);
+      game.score+=150;
+      if(game.score%600===0){
+        game.level++;
+        spawnLevel();
+      }else spawnGood();
+    }
   }
 }
 
 /* =========================
-   UI
-   ========================= */
-document.getElementById("btnStart").addEventListener("click", ()=>{
-  if(!game.running) start();
-});
-document.getElementById("btnReset").addEventListener("click", ()=>{
-  reset();
-});
+   DRAW
+========================= */
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#0b0f19";
+  ctx.fillRect(0,0,W,H);
+
+  ctx.fillStyle="white";
+  ctx.fillText(`Score: ${game.score}`,12,20);
+  ctx.fillText(`Niveau: ${game.level}`,12,40);
+  ctx.fillText(`Vies: ${game.lives}`,12,60);
+
+  for(const g of game.goods){
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--goodFill");
+    ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--goodStroke");
+    ctx.fillRect(g.x-40,g.y-14,120,26);
+    ctx.strokeRect(g.x-40,g.y-14,120,26);
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--goodText");
+    ctx.fillText(g.label,g.x-32,g.y+5);
+  }
+
+  for(const e of game.enemies){
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--badFill");
+    ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--badStroke");
+    ctx.fillRect(e.x-50,e.y-14,140,26);
+    ctx.strokeRect(e.x-50,e.y-14,140,26);
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue("--badText");
+    ctx.fillText(e.label,e.x-42,e.y+5);
+  }
+
+  ctx.beginPath();
+  ctx.arc(game.player.x,game.player.y,PLAYER_R,0,Math.PI*2);
+  ctx.fillStyle="#ff6ad5";
+  ctx.fill();
+}
 
 reset();
-renderLB();
 </script>
+
 </body>
 </html>
