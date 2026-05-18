@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /jeu.html
+Disallow: /merci.html
+
+Sitemap: https://fortheping.com/sitemap.xml
